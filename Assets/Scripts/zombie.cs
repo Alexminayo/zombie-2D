@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class zombie : MonoBehaviour {
+public class Zombie : MonoBehaviour {
 	public float speed = 0.4f;
 	public Transform checkMuros, checkSuelos;
 	private bool veomuro = false;
@@ -58,7 +58,7 @@ public class zombie : MonoBehaviour {
 	
 	void gira_si_no_hay_suelo(){
 		veosuelo = Physics2D.Linecast (transform.position, checkSuelos.position, 1 << LayerMask.NameToLayer ("Ground"));
-		Debug.DrawLine (transform.position, checkSuelos.position,Color.red);
+		Debug.DrawLine (transform.position, checkSuelos.position,Color.green);
 		if (!veosuelo)
 			mediavuelta();
 	}
@@ -66,7 +66,7 @@ public class zombie : MonoBehaviour {
 	void busca_player(){
 		direction  = checkMuros.position-transform.position;
 		var ray = new Ray2D(transform.position,direction.normalized);
-		//Debug.DrawRay(ray.origin, ray.direction*2);
+		Debug.DrawRay(ray.origin, ray.direction*2);
 		var hit = Physics2D.Raycast(ray.origin, ray.direction,2, 1 << LayerMask.NameToLayer ("Player"));
 		if (hit.collider != null && hit.transform.tag == "Player") {
 			speed = 2;
